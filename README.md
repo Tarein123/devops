@@ -15,3 +15,6 @@ Create commit.
 Push to GitHub.
  
 ![workflow](https://github.com/Tarein123/devops/actions/workflows/main.yml/badge.svg)
+
+* License [![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)](LICENSE)
+* Release ![Release](https://img.shields.io/github/v/release/Tarein123/devops?color=grey)
