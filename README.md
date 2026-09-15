@@ -7,3 +7,9 @@ Push the commit.
 Now we can go to GitHub see if our build was successful.
 
 click actions on GitHub
+
+Now go through our Git update steps:
+
+Add files to commit.
+Create commit.
+Push to GitHub.
