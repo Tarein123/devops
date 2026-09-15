@@ -13,6 +13,7 @@ Now go through our Git update steps:
 Add files to commit.
 Create commit.
 Push to GitHub.
+juju
  
 ![workflow](https://github.com/Tarein123/devops/actions/workflows/main.yml/badge.svg)
 
