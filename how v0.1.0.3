@@ -1,0 +1,38 @@
+[33mtag v0.1.0.2[m
+Tagger: Kyaw Thu Rein <kthur13542@gmail.com>
+Date:   Wed Sep 16 11:30:08 2026 +0630
+
+v0.1.0.2
+
+[33mcommit c37d49790850ba693a532cf0cc7e876b017c7d0e[m[33m ([m[1;33mtag: [m[1;33mv0.1.0.2[m[33m, [m[1;31morigin/feature/mongo-intergration[m[33m, [m[1;32mfeature/mongo-intergration[m[33m)[m
+Author: Kyaw Thu Rein <kthur13542@gmail.com>
+Date:   Wed Sep 16 11:22:20 2026 +0630
+
+    changing github actions
+
+[1mdiff --git a/.github/workflows/main.yml b/.github/workflows/main.yml[m
+[1mindex 0040740..2fc4155 100644[m
+[1m--- a/.github/workflows/main.yml[m
+[1m+++ b/.github/workflows/main.yml[m
+[36m@@ -13,11 +13,16 @@[m [mjobs:[m
+         with:[m
+           java-version: '25'[m
+           distribution: 'adopt'[m
+[31m-      - name: Compile with Maven[m
+[31m-        run: mvn compile[m
+[31m-      - name: Build Docker Image[m
+[31m-        run: docker build -t devopsimage .[m
+[32m+[m[32m      - name: Setup network[m
+[32m+[m[32m        run: |[m
+[32m+[m[32m          docker network create --driver bridge se-methods[m
+[32m+[m[32m          docker pull mongo[m
+[32m+[m[32m          docker run -d --name mongo-dbserver --network se-methods mongo[m
+[32m+[m[32m      - name: Build with Maven[m
+[32m+[m[32m        run: mvn package[m
+[32m+[m[32m      - name: Build[m
+[32m+[m[32m        run: docker build -t se_methods .[m
+       - name: Run image[m
+[31m-        run: docker run --name devopscontainer -d devopsimage[m
+[32m+[m[32m        run: docker run --network se-methods --name devopscontainer se_methods[m
+       - name: view logs[m
+         run: docker logs devopscontainer[m
