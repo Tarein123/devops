@@ -1,6 +1,7 @@
 package com.napier.sem;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class App {
 
@@ -143,6 +144,84 @@ public class App {
         }
     }
 
+    /**
+     * Get employees with their salaries by role.
+     *
+     * @param role Employee role
+     * @return List of employees in the given role
+     */
+    public ArrayList<Employee> getEmployeesByRole(String role) {
+
+        ArrayList<Employee> employees = new ArrayList<>();
+
+        try {
+
+            // Create SQL statement
+            Statement stmt = con.createStatement();
+
+            // SQL query to retrieve employees and salaries by role
+            String strSelect =
+                    "SELECT employees.emp_no, employees.first_name, "
+                            + "employees.last_name, salaries.salary "
+                            + "FROM employees, salaries, titles "
+                            + "WHERE employees.emp_no = salaries.emp_no "
+                            + "AND employees.emp_no = titles.emp_no "
+                            + "AND salaries.to_date = '9999-01-01' "
+                            + "AND titles.to_date = '9999-01-01' "
+                            + "AND titles.title = '" + role + "' "
+                            + "ORDER BY employees.emp_no ASC";
+
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            // Add employees to list
+            while (rset.next()) {
+
+                Employee emp = new Employee();
+
+                emp.emp_no = rset.getInt("emp_no");
+                emp.first_name = rset.getString("first_name");
+                emp.last_name = rset.getString("last_name");
+                emp.salary = rset.getInt("salary");
+
+                employees.add(emp);
+            }
+        }
+        catch (Exception e) {
+
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get employees by role");
+        }
+
+        return employees;
+    }
+
+    /**
+     * Display employees and their salaries by role.
+     *
+     * @param employees List of employees
+     */
+    public void displayEmployeesByRole(ArrayList<Employee> employees) {
+
+        if (employees == null || employees.isEmpty()) {
+            System.out.println("No employees found");
+            return;
+        }
+
+        // Print header
+        System.out.println("Employee ID\tFirst Name\tLast Name\tSalary");
+
+        // Print employee information
+        for (Employee emp : employees) {
+            System.out.println(
+                    emp.emp_no + "\t"
+                            + emp.first_name + "\t"
+                            + emp.last_name + "\t"
+                            + emp.salary
+            );
+        }
+    }
+
 
 
     /**
@@ -185,6 +264,12 @@ public class App {
 
         // Display results
         a.displayEmployee(emp);
+
+        // Get employees by role
+        ArrayList<Employee> employees = a.getEmployeesByRole("Engineer");
+
+        // Display employees by role
+        a.displayEmployeesByRole(employees);
 
         // Disconnect from database
         a.disconnect();

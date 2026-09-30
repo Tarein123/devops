@@ -1,0 +1,8 @@
+@startuml
+
+actor HR as "HR Advisor"
+actor DM as "Department Manager"
+
+rectangle Database
+
+

@@ -1,0 +1,14 @@
+@startuml
+
+actor HR as "HR Advisor"
+rectangle Database
+
+rectangle "HR System" {
+    usecase UC5 as "Add a new
+    employee's details"
+
+    HR - UC5
+    UC5 - Database
+}
+
+@enduml
